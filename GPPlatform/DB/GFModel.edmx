@@ -1,0 +1,257 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="GPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="History">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BeginTime" Type="datetime" />
+          <Property Name="LastTime" Type="int" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="100" />
+          <Property Name="Status" Type="int" />
+          <Property Name="StageId" Type="int" />
+        </EntityType>
+        <EntityType Name="Stage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Des" Type="nvarchar" MaxLength="500" />
+          <Property Name="CreateTime" Type="datetime" />
+          <Property Name="LastUpdateTime" Type="datetime" />
+          <Property Name="StageData" Type="image" />
+          <Property Name="Type" Type="nvarchar" MaxLength="100" />
+          <Property Name="CreateUser" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="UserInfoSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="WId" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="NickName" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="CreateTime" Type="datetime" Nullable="false" />
+          <Property Name="LastLoginTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="UserSessionSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="LoginTime" Type="datetime" Nullable="false" />
+          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_History_Stage">
+          <End Role="Stage" Type="Self.Stage" Multiplicity="0..1" />
+          <End Role="History" Type="Self.History" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stage">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="History">
+              <PropertyRef Name="StageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserSessionSet_UserInfoSet">
+          <End Role="UserInfoSet" Type="Self.UserInfoSet" Multiplicity="1" />
+          <End Role="UserSessionSet" Type="Self.UserSessionSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfoSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserSessionSet">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GPModelStoreContainer">
+          <EntitySet Name="History" EntityType="Self.History" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Stage" EntityType="Self.Stage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserInfoSet" EntityType="Self.UserInfoSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserSessionSet" EntityType="Self.UserSessionSet" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_History_Stage" Association="Self.FK_History_Stage">
+            <End Role="Stage" EntitySet="Stage" />
+            <End Role="History" EntitySet="History" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserSessionSet_UserInfoSet" Association="Self.FK_UserSessionSet_UserInfoSet">
+            <End Role="UserInfoSet" EntitySet="UserInfoSet" />
+            <End Role="UserSessionSet" EntitySet="UserSessionSet" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="History">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BeginTime" Type="DateTime" Precision="3" />
+          <Property Name="LastTime" Type="Int32" />
+          <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="StageId" Type="Int32" />
+          <NavigationProperty Name="Stage" Relationship="Self.FK_History_Stage" FromRole="History" ToRole="Stage" />
+        </EntityType>
+        <EntityType Name="Stage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Des" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" />
+          <Property Name="LastUpdateTime" Type="DateTime" Precision="3" />
+          <Property Name="StageData" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Type" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CreateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="History" Relationship="Self.FK_History_Stage" FromRole="Stage" ToRole="History" />
+        </EntityType>
+        <EntityType Name="UserInfoSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="WId" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NickName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastLoginTime" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="UserSessionSet" Relationship="GPModel.FK_UserSessionSet_UserInfoSet" FromRole="UserInfoSet" ToRole="UserSessionSet" />
+        </EntityType>
+        <EntityType Name="UserSessionSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LoginTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="UserInfoSet" Relationship="GPModel.FK_UserSessionSet_UserInfoSet" FromRole="UserSessionSet" ToRole="UserInfoSet" />
+        </EntityType>
+        <Association Name="FK_History_Stage">
+          <End Role="Stage" Type="Self.Stage" Multiplicity="0..1" />
+          <End Role="History" Type="Self.History" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stage">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="History">
+              <PropertyRef Name="StageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GPEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="History" EntityType="Self.History" />
+          <EntitySet Name="Stage" EntityType="Self.Stage" />
+          <EntitySet Name="UserInfoSet" EntityType="Self.UserInfoSet" />
+          <EntitySet Name="UserSessionSet" EntityType="Self.UserSessionSet" />
+          <AssociationSet Name="FK_History_Stage" Association="Self.FK_History_Stage">
+            <End Role="Stage" EntitySet="Stage" />
+            <End Role="History" EntitySet="History" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserSessionSet_UserInfoSet" Association="GPModel.FK_UserSessionSet_UserInfoSet">
+            <End Role="UserInfoSet" EntitySet="UserInfoSet" />
+            <End Role="UserSessionSet" EntitySet="UserSessionSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK_UserSessionSet_UserInfoSet">
+          <End Type="GPModel.UserInfoSet" Role="UserInfoSet" Multiplicity="1" />
+          <End Type="GPModel.UserSessionSet" Role="UserSessionSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfoSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserSessionSet">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="GPModelStoreContainer" CdmEntityContainer="GPEntities">
+          <EntitySetMapping Name="History">
+            <EntityTypeMapping TypeName="GPModel.History">
+              <MappingFragment StoreEntitySet="History">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="BeginTime" ColumnName="BeginTime" />
+                <ScalarProperty Name="LastTime" ColumnName="LastTime" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="StageId" ColumnName="StageId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stage">
+            <EntityTypeMapping TypeName="GPModel.Stage">
+              <MappingFragment StoreEntitySet="Stage">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Des" ColumnName="Des" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="LastUpdateTime" ColumnName="LastUpdateTime" />
+                <ScalarProperty Name="StageData" ColumnName="StageData" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserInfoSet">
+            <EntityTypeMapping TypeName="GPModel.UserInfoSet">
+              <MappingFragment StoreEntitySet="UserInfoSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="WId" ColumnName="WId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="NickName" ColumnName="NickName" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="LastLoginTime" ColumnName="LastLoginTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserSessionSet">
+            <EntityTypeMapping TypeName="GPModel.UserSessionSet">
+              <MappingFragment StoreEntitySet="UserSessionSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="LoginTime" ColumnName="LoginTime" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

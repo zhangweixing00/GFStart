@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="fe604e8694e9496d9ad3c1be0a3d8573" Name="Diagram1">
+        <EntityTypeShape EntityType="GPLib.DAL.History" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="GPLib.DAL.Stage" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="GPLib.DAL.FK_History_Stage" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="GPLib.DAL.UserInfoSet" Width="1.5" PointX="0.75" PointY="5" />
+        <EntityTypeShape EntityType="GPLib.DAL.UserSessionSet" Width="1.5" PointX="3" PointY="5.125" />
+        <AssociationConnector Association="GPLib.DAL.FK_UserSessionSet_UserInfoSet" />
+        <EntityTypeShape EntityType="GPLib.DAL.FightDetail" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="GPLib.DAL.FightInfo" Width="1.5" PointX="5.375" PointY="4.75" />
+        <AssociationConnector Association="GPLib.DAL.FK_FightDetail_FightInfo" />
+        <EntityTypeShape EntityType="GPLib.DAL.DefaultStage" Width="1.5" PointX="3" PointY="8.5" />
+        <AssociationConnector Association="GPLib.DAL.FK_DefaultStage_Stage" />
+        <AssociationConnector Association="GPLib.DAL.FK_DefaultStage_UserInfoSet" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

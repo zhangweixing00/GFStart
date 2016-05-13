@@ -1,0 +1,39 @@
+﻿#board {
+    table-layout: fixed;
+    border-collapse: collapse;
+    border-width: 1px;
+    border-color: gray;
+    border-style: solid;
+}
+
+    #board td {
+        width: 30px;
+        height: 30px;
+        border-width: 1px;
+        border-color: gray;
+        border-style: solid;
+    }
+
+.clearItem {
+    background-color: white;
+}
+
+.selectedItem {
+    background-color: lightgray;
+}
+
+.bodyItem {
+    background-color: lightgreen;
+}
+
+.headerItem {
+    background-color: green;
+}
+
+.unShow {
+    display: none;
+}
+
+#NextLink {
+    margin-left: 100px;
+}

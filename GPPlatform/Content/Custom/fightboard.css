@@ -1,0 +1,75 @@
+﻿.board {
+    table-layout: fixed;
+    border-collapse: collapse;
+    border-width: 1px;
+    border-color: lightgray;
+    border-style: solid;
+}
+
+    .board td {
+        /*width: 30px;
+    height: 30px;*/
+        border-width: 1px;
+        border-color: lightgray;
+        border-style: solid;
+    }
+
+#my_board td {
+    width: 30px;
+    height: 30px;
+}
+
+#your_board td {
+    width: 20px;
+    height: 20px;
+}
+
+.my_header {
+    text-align: center;
+    font-size: smaller;
+    font-weight: bold;
+    color: cadetblue;
+}
+
+    .my_header span {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+.your_header {
+    margin-left: 10px;
+    text-align: left;
+    font-size: 10px;
+    font-weight: bold;
+    color: cadetblue;
+    float: left;
+    width: 90px;
+}
+
+    .your_header div {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+/*.clearItem {
+    background-color: white;
+}
+
+.selectedItem {
+    background-color: lightgray;
+}
+
+.bodyItem {
+    background-color: lightgreen;
+}
+
+.headerItem {
+    background-color: green;
+}
+
+.unShow {
+    display: none;
+}
+
+#NextLink {
+    margin-left: 100px;
+}*/
