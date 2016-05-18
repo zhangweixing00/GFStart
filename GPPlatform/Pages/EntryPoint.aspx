@@ -21,7 +21,7 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            <div data-role="page">
+            <div data-role="page" id="entryPoint">
                 <div data-role="header">
                     <!--<a href="#" data-role="button" data-icon="home">首页</a>-->
                     <h1>IT支持平台</h1>

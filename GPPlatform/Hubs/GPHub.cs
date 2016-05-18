@@ -23,7 +23,7 @@ namespace GPPlatform.Hubs
             //Clients.Caller.loadUserList(userDatas);
             return base.OnConnected();
         }
-
+        
         public override Task OnDisconnected(bool stopCalled)
         {
 
@@ -38,13 +38,16 @@ namespace GPPlatform.Hubs
             UserManager.LoginIn(Wid, Context.ConnectionId);
             return base.OnReconnected();
         }
+
         [HubMethodName("PushUserList")]
-        public void PushUserList(string wid)
+        public void PushUserList(string uid)
         {
-            Wid = wid;
-            UserManager.LoginIn(wid, Context.ConnectionId);
-            var userDatas = UserManager.GetUserList(wid);
-            Clients.All.loadUserList(userDatas);
+            Clients.Caller.Uid = uid;
+            Wid = uid;
+            UserManager.LoginIn(uid, Context.ConnectionId);
+            var userDatas = UserManager.GetUserList(uid);
+            //推送到所有用户
+            Clients.Caller.loadUserList(userDatas);
         }
     }
 }

@@ -25,7 +25,7 @@ namespace GPPlatform.FGService
 
         public static bool SyncToDB()
         {
-            new Task(() =>
+            new Task<bool>(() =>
             {
                 string StageCacheName = "CacheForStageList";
                 if (HttpRuntime.Cache[StageCacheName] != null)
@@ -61,8 +61,12 @@ namespace GPPlatform.FGService
                             }
                         }
                     }
+                    DBContext.SaveChanges();
+                    
                 }
+                return true;
             });
+            return true;
         }
     }
 }

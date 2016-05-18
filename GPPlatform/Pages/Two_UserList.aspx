@@ -1,31 +1,32 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Two_UserList.aspx.cs" Inherits="GPPlatform.Pages.Two_UserList" %>
 
-<div data-role="page">
-    <meta name="viewport" content="width=device-width" />
-    <link rel="stylesheet" href="../Content/jquery.mobile-1.4.2.css" />
+<div data-role="page" id="Two_UserList">
+    <%--     <meta name="viewport" content="width=device-width" />
+   <link rel="stylesheet" href="../Content/jquery.mobile-1.4.2.css" />
     <script type="text/javascript" src="../Scripts/jquery-2.2.3.js"></script>
-    <script src="../Scripts/jquery.mobile-1.4.2.min.js"></script>
-    <script type="text/javascript" src="../Scripts/jquery.signalR-2.2.0.js"></script>
-    <script src="/signalr/hubs"></script>
+    <script src="../Scripts/jquery.mobile-1.4.2.min.js"></script>--%>
+    <%--    <script type="text/javascript" src="../Scripts/jquery.signalR-2.2.0.js"></script>
+    <script src="/signalr/hubs"></script>--%>
     <script type="text/javascript">
 
-        $(document).on("pageinit", function (event, data) {
+        $(document).on("pagebeforecreate", function (event, data) {
+            try {
+                var userId = 'd59238a9-c535-41ca-81fe-cfe8ad13ad24';
+                var noticeHub = $.connection.noticeHub;
+                noticeHub.client.loadUserList = function (userList) {
+                    // alert("")
+                    DoLoadUserList(userList);
+                }
+                $.connection.hub.start().done(function () {
+                    noticeHub.server.PushUserList(userId);
+                });
 
-            var userId = 'd59238a9-c535-41ca-81fe-cfe8ad13ad24';
-            var noticeHub = $.connection.noticeHub;
-            noticeHub.client.loadUserList = function (userList) {
-                // alert("")
-                DoLoadUserList(userList);
-            }
-            $.connection.hub.start().done(function () {
-                noticeHub.server.PushUserList(userId);
-            });
-
-            function refresh() {
-                noticeHub.server.PushUserList(userId);
-            }
+                function refresh() {
+                    noticeHub.server.PushUserList(userId);
+                }
+            } catch (e) { alert(e.name + ": " + e.message); }
             //setInterval(function () { noticeHub.server.PushUserList(userId); }, 1000);
-            var t1 = setInterval(function () { noticeHub.server.PushUserList(userId); }, 5000);
+            //var t1 = setInterval(function () { noticeHub.server.PushUserList(userId); }, 5000);
         })
         function DoLoadUserList(userList) {
             //alert(userList);
